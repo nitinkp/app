@@ -93,8 +93,8 @@ export const nithinTejuWedding: WeddingConfig = {
     },
     {
       id: "save-the-date",
-      type: "film",
-      title: "Save the Date Film - August 29, 2026",
+      type: "photo",
+      title: "Save the Date - August 29, 2026",
       src: "/weddings/nithin-teju/gallery/save-the-date-film.jpeg",
     },
   ],
