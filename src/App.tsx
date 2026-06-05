@@ -9,17 +9,18 @@ import { Story } from "./components/Story";
 import { Venues } from "./components/Venues";
 import { useEffect } from "react";
 import type { WeddingConfig } from "./types";
-import { defaultWeddingSlug, getAvailableWeddings, getWeddingBySlug } from "./weddings";
+import { defaultWeddingSlug, getAvailableWeddings, getWeddingBySlug, normalizeWeddingSlug } from "./weddings";
 
-const getRequestedWeddingSlug = () => {
-  const envSlug = import.meta.env.VITE_WEDDING_SLUG;
+const getRequestedWeddingSlug = (): string => {
+  const envSlug =
+    typeof import.meta.env.VITE_WEDDING_SLUG === "string" ? import.meta.env.VITE_WEDDING_SLUG : undefined;
 
   if (envSlug) {
-    return envSlug;
+    return normalizeWeddingSlug(envSlug) || defaultWeddingSlug;
   }
 
   const [pathSlug] = window.location.pathname.split("/").filter(Boolean);
-  return pathSlug || defaultWeddingSlug;
+  return normalizeWeddingSlug(pathSlug) || defaultWeddingSlug;
 };
 
 function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
