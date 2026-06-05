@@ -19,7 +19,7 @@ const emptySubmission = (eventIds: string[]): RsvpSubmission => ({
 
 const getGoogleFormActionUrl = (formUrl: string) => formUrl.split("/viewform")[0] + "/formResponse";
 
-const appendIfPresent = (data: FormData, key: string | undefined, value: string | number | undefined) => {
+const appendIfPresent = (data: URLSearchParams, key: string | undefined, value: string | number | undefined) => {
   if (key && value !== undefined && String(value).trim()) {
     data.append(key, String(value));
   }
@@ -68,8 +68,9 @@ export function Rsvp({ wedding }: RsvpProps) {
     if (wedding.rsvp.googleFormUrl && wedding.rsvp.googleFormFieldIds) {
       const fieldIds = wedding.rsvp.googleFormFieldIds;
       const optionLabels = wedding.rsvp.googleFormOptionLabels;
-      const formData = new FormData();
+      const formData = new URLSearchParams();
 
+      appendIfPresent(formData, "emailAddress", submission.email);
       appendIfPresent(formData, fieldIds.fullName, submission.name);
       appendIfPresent(formData, fieldIds.email, submission.email);
       appendIfPresent(formData, fieldIds.phone, submission.phone);
@@ -85,10 +86,17 @@ export function Rsvp({ wedding }: RsvpProps) {
         appendIfPresent(formData, fieldIds.events, optionLabels?.events?.[eventId] ?? eventId);
       });
 
+      formData.append("fvv", "1");
+      formData.append("pageHistory", "0");
+      formData.append("submit", "Submit");
+
       try {
         await fetch(getGoogleFormActionUrl(wedding.rsvp.googleFormUrl), {
           method: "POST",
           mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
           body: formData,
         });
         setStatus("sent");
