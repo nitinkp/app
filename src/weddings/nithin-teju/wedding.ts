@@ -50,6 +50,24 @@ export const nithinTejuWedding: WeddingConfig = {
       },
     },
     {
+      id: "mehendi",
+      title: "Mehendi",
+      type: "Celebration",
+      date: "2026-08-28",
+      startTime: "18:00",
+      endTime: "22:00",
+      dressCode: "Colorful traditional attire, mehendi-friendly",
+      note: "Henna, music, dancing, and celebration.",
+      image:
+        "https://images.unsplash.com/photo-1619734089700-842e56497353?auto=format&fit=crop&w=1200&q=80",
+      venue: {
+        name: "Address here",
+        address: "Address here",
+        city: "Atlanta, GA",
+        mapQuery: "Address here",
+      },
+    },
+    {
       id: "wedding",
       title: "Wedding Ceremony",
       type: "Wedding",
@@ -135,6 +153,7 @@ export const nithinTejuWedding: WeddingConfig = {
       },
       events: {
         haldi: "Haldi",
+        mehendi: "Mehendi",
         wedding: "Wedding Ceremony",
         reception: "Reception & Cocktail Party",
       },
