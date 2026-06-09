@@ -220,6 +220,7 @@ export function ScratchReveal({ weddingDate, countdown, timeZone }: ScratchRevea
                 "--drift": `${((index % 7) - 3) * 28}px`,
                 "--duration": `${2_150 + (index % 7) * 110}ms`,
                 "--left": `${(index * 37) % 100}%`,
+                "--reduced-top": `${8 + ((index * 29) % 84)}vh`,
                 "--rotation": `${index * 31}deg`,
               } as CSSProperties;
 

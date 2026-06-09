@@ -4,12 +4,13 @@ import type { WeddingConfig } from "../types";
 
 type InvitationGateProps = {
   wedding: WeddingConfig;
+  onReveal: () => void;
   onComplete: () => void;
 };
 
-type GatePhase = "sealed" | "opening" | "exiting";
+type GatePhase = "sealed" | "opening" | "unfolding" | "exiting";
 
-export function InvitationGate({ wedding, onComplete }: InvitationGateProps) {
+export function InvitationGate({ wedding, onReveal, onComplete }: InvitationGateProps) {
   const [phase, setPhase] = useState<GatePhase>("sealed");
   const config = wedding.entryInvitation;
 
@@ -24,8 +25,12 @@ export function InvitationGate({ wedding, onComplete }: InvitationGateProps) {
     }
 
     setPhase("opening");
-    window.setTimeout(() => setPhase("exiting"), 1_400);
-    window.setTimeout(onComplete, 2_100);
+    window.setTimeout(() => setPhase("unfolding"), 1_150);
+    window.setTimeout(() => {
+      setPhase("exiting");
+      onReveal();
+    }, 2_850);
+    window.setTimeout(onComplete, 3_550);
   };
 
   return (
@@ -45,6 +50,11 @@ export function InvitationGate({ wedding, onComplete }: InvitationGateProps) {
       <button className="envelope-button" type="button" onClick={openInvitation} aria-label="Open wedding invitation">
         <span className="envelope-scene" aria-hidden="true">
           <span className="envelope-back" />
+          <span className="invitation-card">
+            <span className="invitation-card-panel invitation-card-panel-left" />
+            <span className="invitation-card-panel invitation-card-panel-right" />
+            <span className="invitation-card-monogram">NT</span>
+          </span>
           <span className="envelope-letter-pocket" />
           <span className="envelope-flap" />
           <span className="envelope-seal">

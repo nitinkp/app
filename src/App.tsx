@@ -44,26 +44,32 @@ const getRequestedWeddingSlug = (): string => {
 function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
   const invitationStorageKey = `wedding-invitation-opened:${wedding.slug}`;
   const rememberForSession = wedding.entryInvitation?.rememberForSession ?? true;
-  const [isInvitationOpen, setIsInvitationOpen] = useState(() => {
+  const [hasSeenInvitation] = useState(() => {
     if (!wedding.entryInvitation?.enabled) {
       return true;
     }
 
     return rememberForSession && window.sessionStorage.getItem(invitationStorageKey) === "true";
   });
+  const [isInvitationOpen, setIsInvitationOpen] = useState(hasSeenInvitation);
+  const [isInvitationVisible, setIsInvitationVisible] = useState(!hasSeenInvitation);
   const [didTransitionFromInvitation, setDidTransitionFromInvitation] = useState(false);
 
   useEffect(() => {
     document.title = `${wedding.couple.displayNames} Wedding`;
   }, [wedding.couple.displayNames]);
 
-  const completeInvitation = useCallback(() => {
+  const revealInvitation = useCallback(() => {
     if (rememberForSession) {
       window.sessionStorage.setItem(invitationStorageKey, "true");
     }
     setDidTransitionFromInvitation(true);
     setIsInvitationOpen(true);
   }, [invitationStorageKey, rememberForSession]);
+
+  const completeInvitation = useCallback(() => {
+    setIsInvitationVisible(false);
+  }, []);
 
   return (
     <div
@@ -75,7 +81,9 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
       ].filter(Boolean).join(" ")}
       style={getThemeStyle(wedding.theme.name, wedding.theme.overrides)}
     >
-      {!isInvitationOpen && <InvitationGate wedding={wedding} onComplete={completeInvitation} />}
+      {isInvitationVisible && (
+        <InvitationGate wedding={wedding} onReveal={revealInvitation} onComplete={completeInvitation} />
+      )}
       <Header wedding={wedding} />
       <main>
         <Hero wedding={wedding} />
