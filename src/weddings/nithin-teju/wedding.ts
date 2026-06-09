@@ -45,7 +45,7 @@ export const nithinTejuWedding: WeddingConfig = {
       venue: {
         name: "Address here",
         address: "Address here",
-        city: "Atlanta, GA",
+        city: "Cumming, GA",
         mapQuery: "Address here",
       },
     },
@@ -62,7 +62,7 @@ export const nithinTejuWedding: WeddingConfig = {
       venue: {
         name: "Address here",
         address: "Address here",
-        city: "Atlanta, GA",
+        city: "Cumming, GA",
         mapQuery: "Address here",
       },
     },

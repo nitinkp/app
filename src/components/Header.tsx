@@ -1,4 +1,4 @@
-import { CalendarDays, Heart, MapPin, PlayCircle, Send, Sparkles } from "lucide-react";
+import { CalendarDays, Heart, PlayCircle, Send, Sparkles } from "lucide-react";
 import type { WeddingConfig } from "../types";
 
 type HeaderProps = {
@@ -10,7 +10,6 @@ const links = [
   { href: "#rsvp", label: "RSVP", icon: Send },
   { href: "#gallery", label: "Media", icon: Sparkles },
   { href: "#live", label: "Live", icon: PlayCircle },
-  { href: "#venues", label: "Maps", icon: MapPin },
 ];
 
 export function Header({ wedding }: HeaderProps) {

@@ -1,7 +1,8 @@
-import { CalendarDays, Clock, MapPin, Shirt } from "lucide-react";
+import { CalendarDays, Clock, ExternalLink, MapPin, Shirt } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { WeddingEvent } from "../types";
 import { formatDate, formatTime, getTimeZoneAbbreviation, sortByDateTime } from "../lib/date";
+import { getGoogleMapsUrl } from "../lib/maps";
 
 type EventsProps = {
   events: WeddingEvent[];
@@ -34,44 +35,60 @@ export function Events({ events, timeZone }: EventsProps) {
         ))}
       </div>
       <div className="event-grid">
-        {visibleEvents.map((event) => (
-          <article className={`event-card event-card-${event.id}`} key={event.id}>
-            <img src={event.image} alt={`${event.title} celebration`} />
-            <div className="event-body">
-              <div>
-                <p className="event-type">{event.type}</p>
-                <h3>{event.title}</h3>
-              </div>
-              <ul>
-                <li>
-                  <CalendarDays size={18} />
-                  <span>{formatDate(event.date)}</span>
-                </li>
-                <li>
-                  <Clock size={18} />
-                  <span>
-                    {formatTime(event.date, event.startTime)}
-                    {event.endTime ? ` - ${formatTime(event.date, event.endTime)}` : ""}
-                    {` ${getTimeZoneAbbreviation(event.date, timeZone)}`}
-                  </span>
-                </li>
-                <li>
-                  <MapPin size={18} />
-                  <span>
-                    {event.venue.name}, {event.venue.city}
-                  </span>
-                </li>
-                {event.dressCode && (
+        {visibleEvents.map((event) => {
+          const googleMapsUrl = getGoogleMapsUrl(event.venue);
+
+          return (
+            <article className={`event-card event-card-${event.id}`} key={event.id}>
+              <img src={event.image} alt={`${event.title} celebration`} />
+              <div className="event-body">
+                <div>
+                  <p className="event-type">{event.type}</p>
+                  <h3>{event.title}</h3>
+                </div>
+                <ul>
                   <li>
-                    <Shirt size={18} />
-                    <span>{event.dressCode}</span>
+                    <CalendarDays size={18} />
+                    <span>{formatDate(event.date)}</span>
                   </li>
-                )}
-              </ul>
-              {event.note && <p className="event-note">{event.note}</p>}
-            </div>
-          </article>
-        ))}
+                  <li>
+                    <Clock size={18} />
+                    <span>
+                      {formatTime(event.date, event.startTime)}
+                      {event.endTime ? ` - ${formatTime(event.date, event.endTime)}` : ""}
+                      {` ${getTimeZoneAbbreviation(event.date, timeZone)}`}
+                    </span>
+                  </li>
+                  <li>
+                    <MapPin size={18} />
+                    {googleMapsUrl ? (
+                      <a className="event-location" href={googleMapsUrl} target="_blank" rel="noreferrer">
+                        <span>
+                          <strong>{event.venue.name}</strong>
+                          <small>
+                            {event.venue.address}, {event.venue.city}
+                          </small>
+                        </span>
+                        <ExternalLink size={15} />
+                      </a>
+                    ) : (
+                      <span>
+                        {event.venue.name}, {event.venue.city}
+                      </span>
+                    )}
+                  </li>
+                  {event.dressCode && (
+                    <li>
+                      <Shirt size={18} />
+                      <span>{event.dressCode}</span>
+                    </li>
+                  )}
+                </ul>
+                {event.note && <p className="event-note">{event.note}</p>}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

@@ -7,7 +7,6 @@ import { InvitationGate } from "./components/InvitationGate";
 import { LiveStream } from "./components/LiveStream";
 import { Rsvp } from "./components/Rsvp";
 import { Story } from "./components/Story";
-import { Venues } from "./components/Venues";
 import { useCallback, useEffect, useState } from "react";
 import { getThemeStyle } from "./themes";
 import type { WeddingConfig } from "./types";
@@ -52,6 +51,7 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
 
     return rememberForSession && window.sessionStorage.getItem(invitationStorageKey) === "true";
   });
+  const [didTransitionFromInvitation, setDidTransitionFromInvitation] = useState(false);
 
   useEffect(() => {
     document.title = `${wedding.couple.displayNames} Wedding`;
@@ -61,11 +61,20 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
     if (rememberForSession) {
       window.sessionStorage.setItem(invitationStorageKey, "true");
     }
+    setDidTransitionFromInvitation(true);
     setIsInvitationOpen(true);
   }, [invitationStorageKey, rememberForSession]);
 
   return (
-    <div className={`wedding-app theme-${wedding.theme.name}`} style={getThemeStyle(wedding.theme.name, wedding.theme.overrides)}>
+    <div
+      className={[
+        "wedding-app",
+        `theme-${wedding.theme.name}`,
+        !isInvitationOpen ? "invitation-pending" : "",
+        didTransitionFromInvitation ? "invitation-complete" : "",
+      ].filter(Boolean).join(" ")}
+      style={getThemeStyle(wedding.theme.name, wedding.theme.overrides)}
+    >
       {!isInvitationOpen && <InvitationGate wedding={wedding} onComplete={completeInvitation} />}
       <Header wedding={wedding} />
       <main>
@@ -75,7 +84,6 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
         <Rsvp wedding={wedding} />
         <Gallery items={wedding.gallery} />
         {wedding.livestream && <LiveStream livestream={wedding.livestream} timeZone={wedding.timeZone} />}
-        <Venues events={wedding.events} />
       </main>
       <Footer wedding={wedding} />
     </div>

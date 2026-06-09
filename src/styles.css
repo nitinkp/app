@@ -41,6 +41,63 @@ body {
   color: var(--ink);
 }
 
+.wedding-app.invitation-pending > .site-header {
+  opacity: 0;
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.wedding-app.invitation-pending > main,
+.wedding-app.invitation-pending > .footer {
+  opacity: 0;
+  transform: scale(1.035) translateY(14px);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.wedding-app.invitation-complete > .site-header {
+  animation: site-header-invitation-reveal 1.1s cubic-bezier(0.2, 0.78, 0.2, 1) both;
+}
+
+.wedding-app.invitation-complete > main,
+.wedding-app.invitation-complete > .footer {
+  animation: site-invitation-reveal 1.1s cubic-bezier(0.2, 0.78, 0.2, 1) both;
+}
+
+.wedding-app.invitation-complete > main {
+  animation-delay: 80ms;
+}
+
+.wedding-app.invitation-complete > .footer {
+  animation-delay: 140ms;
+}
+
+@keyframes site-invitation-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.025) translateY(16px);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes site-header-invitation-reveal {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
 button,
 input,
 textarea {
@@ -318,47 +375,55 @@ h3 {
 }
 
 .scratch-celebration {
-  position: absolute;
-  z-index: 5;
-  top: 50%;
-  left: 50%;
-  width: 1px;
-  height: 1px;
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .scratch-celebration i {
-  --angle: calc(var(--particle) * 20deg);
   position: absolute;
-  width: 8px;
-  height: 13px;
+  top: -24px;
+  left: var(--left);
+  width: 9px;
+  height: 16px;
   border-radius: 2px;
-  background: var(--dark-accent);
-  animation: scratch-confetti 1.45s ease-out forwards;
-  transform: rotate(var(--angle));
+  background: var(--celebration-accent);
+  opacity: 0;
+  transform: rotate(var(--rotation));
+  animation: scratch-confetti-fall var(--duration) ease-in forwards;
+  animation-delay: var(--delay);
 }
 
 .scratch-celebration i:nth-child(3n + 1) {
   background: #ffd166;
+  border-radius: 50%;
 }
 
 .scratch-celebration i:nth-child(3n + 2) {
   background: #ffffff;
+  width: 6px;
+  height: 18px;
 }
 
-@keyframes scratch-confetti {
+@keyframes scratch-confetti-fall {
   0% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateY(0) rotate(0deg);
+    opacity: 0;
+    transform: translate3d(0, -4svh, 0) rotate(0deg);
   }
 
-  75% {
+  8% {
+    opacity: 1;
+  }
+
+  82% {
     opacity: 1;
   }
 
   100% {
     opacity: 0;
-    transform: rotate(var(--angle)) translateY(-150px) rotate(480deg);
+    transform: translate3d(var(--drift), 108svh, 0) rotate(760deg);
   }
 }
 
@@ -500,6 +565,45 @@ h3 {
   display: flex;
   gap: 10px;
   color: #51484b;
+}
+
+.event-location {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.event-location span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.event-location strong {
+  color: var(--ink);
+  font-size: 0.96rem;
+}
+
+.event-location small {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.event-location:hover strong,
+.event-location:focus-visible strong {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.event-location:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .event-note,
@@ -920,8 +1024,10 @@ body.invitation-locked {
   color: var(--ink);
   isolation: isolate;
   transition:
-    opacity 520ms ease,
-    visibility 520ms ease;
+    opacity 620ms ease,
+    visibility 620ms ease,
+    filter 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.78, 0.2, 1);
 }
 
 .invitation-backdrop {
@@ -931,6 +1037,9 @@ body.invitation-locked {
   background:
     linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
     var(--invitation-image) center / cover;
+  transition:
+    filter 700ms ease,
+    transform 800ms cubic-bezier(0.2, 0.78, 0.2, 1);
 }
 
 .invitation-backdrop::after {
@@ -994,6 +1103,10 @@ body.invitation-locked {
   aspect-ratio: 1.55 / 1;
   filter: drop-shadow(0 24px 24px rgba(54, 42, 38, 0.2));
   transform: translateY(0);
+  transition:
+    opacity 540ms ease,
+    filter 620ms ease,
+    transform 620ms cubic-bezier(0.2, 0.78, 0.2, 1);
 }
 
 .envelope-back,
@@ -1145,8 +1258,21 @@ body.invitation-locked {
 
 .invitation-exiting {
   opacity: 0;
+  transform: scale(1.045);
+  filter: blur(8px);
   pointer-events: none;
   visibility: hidden;
+}
+
+.invitation-exiting .invitation-backdrop {
+  filter: blur(10px);
+  transform: scale(1.08);
+}
+
+.invitation-exiting .envelope-scene {
+  opacity: 0;
+  filter: drop-shadow(0 12px 16px rgba(54, 42, 38, 0.1)) blur(5px);
+  transform: translateY(-24px) scale(0.9);
 }
 
 @media (max-width: 840px) {
@@ -1664,11 +1790,18 @@ body.invitation-locked {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .wedding-app.invitation-complete > .site-header,
+  .wedding-app.invitation-complete > main,
+  .wedding-app.invitation-complete > .footer,
   .invitation-gate,
+  .invitation-backdrop,
   .invitation-intro,
   .invitation-card,
+  .envelope-scene,
   .envelope-flap,
-  .envelope-seal {
+  .envelope-seal,
+  .scratch-celebration i {
+    animation-duration: 1ms;
     transition-duration: 1ms;
   }
 }

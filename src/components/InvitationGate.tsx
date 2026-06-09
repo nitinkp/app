@@ -25,7 +25,7 @@ export function InvitationGate({ wedding, onComplete }: InvitationGateProps) {
 
     setPhase("opening");
     window.setTimeout(() => setPhase("exiting"), 1_400);
-    window.setTimeout(onComplete, 2_300);
+    window.setTimeout(onComplete, 2_100);
   };
 
   return (

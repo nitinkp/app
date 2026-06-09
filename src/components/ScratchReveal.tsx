@@ -1,6 +1,7 @@
 import { CalendarHeart } from "lucide-react";
 import type { CSSProperties, PointerEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { formatDate } from "../lib/date";
 
 type Countdown = {
@@ -27,6 +28,7 @@ export function ScratchReveal({ weddingDate, countdown, timeZone }: ScratchRevea
   const isDrawingRef = useRef(false);
   const [isRevealed, setIsRevealed] = useState(false);
   const [isCelebrating, setIsCelebrating] = useState(false);
+  const [celebrationColor, setCelebrationColor] = useState("#b24b5a");
 
   const drawCover = useCallback(() => {
     const canvas = canvasRef.current;
@@ -95,8 +97,12 @@ export function ScratchReveal({ weddingDate, countdown, timeZone }: ScratchRevea
     }
 
     setIsRevealed(true);
+    const themeColor = panelRef.current
+      ? window.getComputedStyle(panelRef.current).getPropertyValue("--dark-accent").trim()
+      : "";
+    setCelebrationColor(themeColor || "#b24b5a");
     setIsCelebrating(true);
-    window.setTimeout(() => setIsCelebrating(false), 1_800);
+    window.setTimeout(() => setIsCelebrating(false), 3_200);
   }, [isRevealed]);
 
   const scratchAt = (event: PointerEvent<HTMLCanvasElement>) => {
@@ -201,13 +207,27 @@ export function ScratchReveal({ weddingDate, countdown, timeZone }: ScratchRevea
           tabIndex={0}
         />
       )}
-      {isCelebrating && (
-        <div className="scratch-celebration" aria-hidden="true">
-          {Array.from({ length: 18 }, (_, index) => (
-            <i key={index} style={{ "--particle": index } as CSSProperties} />
-          ))}
-        </div>
-      )}
+      {isCelebrating &&
+        createPortal(
+          <div
+            className="scratch-celebration"
+            style={{ "--celebration-accent": celebrationColor } as CSSProperties}
+            aria-hidden="true"
+          >
+            {Array.from({ length: 72 }, (_, index) => {
+              const style = {
+                "--delay": `${(index % 15) * 45}ms`,
+                "--drift": `${((index % 7) - 3) * 28}px`,
+                "--duration": `${2_150 + (index % 7) * 110}ms`,
+                "--left": `${(index * 37) % 100}%`,
+                "--rotation": `${index * 31}deg`,
+              } as CSSProperties;
+
+              return <i key={index} style={style} />;
+            })}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
