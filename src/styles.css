@@ -459,7 +459,9 @@ h3 {
   width: 100%;
   height: 100%;
   min-height: 260px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background: color-mix(in srgb, var(--paper) 92%, var(--accent));
 }
 
 .event-body,
@@ -1184,8 +1186,9 @@ body.invitation-locked {
   }
 
   .event-card img {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: auto;
     min-height: 0;
+    object-fit: contain;
   }
 
   .media-tile,
@@ -1378,9 +1381,11 @@ body.invitation-locked {
 
   .event-card img {
     width: 100%;
-    height: auto;
-    max-height: 260px;
-    object-fit: cover;
+    height: clamp(300px, 112vw, 540px);
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    background: color-mix(in srgb, var(--paper) 92%, var(--accent));
   }
 
   .event-body {
@@ -1626,6 +1631,10 @@ body.invitation-locked {
 
   .scratch-reveal .countdown div {
     min-height: 62px;
+  }
+
+  .event-card img {
+    height: clamp(290px, 118vw, 480px);
   }
 
   .attendance {

@@ -35,7 +35,7 @@ export function Events({ events, timeZone }: EventsProps) {
       </div>
       <div className="event-grid">
         {visibleEvents.map((event) => (
-          <article className="event-card" key={event.id}>
+          <article className={`event-card event-card-${event.id}`} key={event.id}>
             <img src={event.image} alt={`${event.title} celebration`} />
             <div className="event-body">
               <div>

@@ -39,7 +39,7 @@ export const nithinTejuWedding: WeddingConfig = {
       date: "2026-08-27",
       startTime: "17:00",
       endTime: "20:00",
-      dressCode: "Biege, yellow, or florals",
+      dressCode: "Biege, Yellow, or Florals",
       note: "Expect turmeric, games, laughter, and sunlight.",
       image: "/weddings/nithin-teju/gallery/inthe_haldi.jpeg",
       venue: {
@@ -56,7 +56,7 @@ export const nithinTejuWedding: WeddingConfig = {
       date: "2026-08-28",
       startTime: "18:00",
       endTime: "22:00",
-      dressCode: "Colorful traditional attire, mehendi-friendly",
+      dressCode: "Colorful traditional attire, Mehendi-friendly",
       note: "Henna, music, dancing, and celebration.",
       image: "/weddings/nithin-teju/gallery/inthe_mehendi.jpeg",
       venue: {
@@ -73,7 +73,7 @@ export const nithinTejuWedding: WeddingConfig = {
       date: "2026-08-29",
       startTime: "09:30",
       endTime: "12:30",
-      dressCode: "Traditional Indian attire",
+      dressCode: "Traditional Indian Attire",
       note: "The actual jeelakarra-bellam (Cumin-Jaggery) muhurtham is 10:01 AM.",
       image:
         "https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=80",
@@ -91,7 +91,7 @@ export const nithinTejuWedding: WeddingConfig = {
       date: "2026-08-29",
       startTime: "19:00",
       endTime: "23:30",
-      dressCode: "Men - Blazers / tuxedos, Women - Sharara suits",
+      dressCode: "Men - Blazers / Tuxedos, Women - Sharara Suits",
       note: "Dinner, cocktails, dancing, and a few happy tears.",
       image:
         "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=80",
