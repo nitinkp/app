@@ -1,6 +1,7 @@
 import { Image, PlayCircle, X } from "lucide-react";
 import { useState } from "react";
 import type { MediaItem } from "../types";
+import Slideshow from "./Slideshow";
 
 type GalleryProps = {
   items: MediaItem[];
@@ -15,17 +16,21 @@ export function Gallery({ items }: GalleryProps) {
         <p className="eyebrow">Photos and films</p>
         <h2>Memories before the big day.</h2>
       </div>
-      <div className="media-grid">
-        {items.map((item) => (
-          <button className="media-tile" key={item.id} type="button" onClick={() => setActiveItem(item)}>
-            <img src={item.poster ?? item.src} alt={item.title} />
-            <span>
-              {item.type === "photo" ? <Image size={18} /> : <PlayCircle size={18} />}
-              {item.title}
-            </span>
-          </button>
-        ))}
-      </div>
+      {items.length === 3 && items.every((it) => it.type === "photo") ? (
+        <Slideshow items={items} interval={3000} />
+      ) : (
+        <div className="media-grid">
+          {items.map((item) => (
+            <button className="media-tile" key={item.id} type="button" onClick={() => setActiveItem(item)}>
+              <img src={item.poster ?? item.src} alt={item.title} />
+              <span>
+                {item.type === "photo" ? <Image size={18} /> : <PlayCircle size={18} />}
+                {item.title}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
       {activeItem && (
         <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label={activeItem.title}>
           <div className="media-modal">
