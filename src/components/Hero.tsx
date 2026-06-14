@@ -19,7 +19,7 @@ export function Hero({ wedding }: HeroProps) {
   return (
     <section
       id="home"
-      className="hero"
+      className={`hero hero-${wedding.slug}`}
       style={
         {
           "--hero-image": `url(${wedding.heroImage})`,
@@ -28,20 +28,22 @@ export function Hero({ wedding }: HeroProps) {
     >
       <div className="hero-overlay" />
       <div className="hero-content">
-        <p className="eyebrow">{wedding.invitation.greeting}</p>
-        <h1>
-          {wedding.couple.heroTitle || wedding.couple.displayNames}
-          {wedding.couple.portmanteau && (
-            <span className="hero-portmanteau">
-              {wedding.couple.portmanteau.segments.map((segment, index) => (
-                <span key={index} className={`portmanteau-segment ${segment.isPrimary ? "primary" : "secondary"}`}>
-                  {segment.text}
-                </span>
-              ))}
-            </span>
-          )}
-        </h1>
-        <p className="hero-tagline">{wedding.couple.tagline}</p>
+        <div className="hero-copy">
+          <p className="eyebrow">{wedding.invitation.greeting}</p>
+          <h1>
+            {wedding.couple.heroTitle || wedding.couple.displayNames}
+            {wedding.couple.portmanteau && (
+              <span className="hero-portmanteau">
+                {wedding.couple.portmanteau.segments.map((segment, index) => (
+                  <span key={index} className={`portmanteau-segment ${segment.isPrimary ? "primary" : "secondary"}`}>
+                    {segment.text}
+                  </span>
+                ))}
+              </span>
+            )}
+          </h1>
+          <p className="hero-tagline">{wedding.couple.tagline}</p>
+        </div>
         <ScratchReveal weddingDate={wedding.weddingDate} countdown={countdown} timeZone={wedding.timeZone} />
       </div>
       <a className="scroll-cue" href="#story">

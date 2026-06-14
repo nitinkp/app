@@ -387,9 +387,7 @@ h3 {
   width: min(600px, 100%);
   max-width: 600px;
   min-height: 220px;
-  margin: 28px auto 0;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 40px auto 0;
   overflow: visible;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
@@ -1208,6 +1206,7 @@ legend {
 }
 
 .video-frame iframe {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 0;
@@ -1806,6 +1805,41 @@ body.invitation-locked {
     background-position: center top;
   }
 
+  .section.live-section {
+    padding: 56px 12px 24px;
+  }
+
+  .live-section .section-heading {
+    margin-bottom: 20px;
+    padding: 0 8px;
+  }
+
+  .live-section .live-layout {
+    gap: 14px;
+  }
+
+  .live-section .video-frame iframe {
+    aspect-ratio: 16 / 9.5;
+  }
+
+  .live-section .live-details {
+    gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .live-section .live-details p {
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .live-section .live-details .primary-button {
+    min-height: 54px;
+  }
+
   .story,
   .event-card,
   .event-grid,
@@ -1902,6 +1936,40 @@ body.invitation-locked {
     align-items: end;
   }
 
+  .hero-nithin-teju .hero-content {
+    position: static;
+  }
+
+  .hero-nithin-teju .hero-copy {
+    position: absolute;
+    bottom: 310px;
+    left: 20px;
+    width: min(58vw, 260px);
+  }
+
+  .hero-nithin-teju .eyebrow {
+    margin-bottom: 8px;
+    font-size: 0.66rem;
+  }
+
+  .hero-nithin-teju h1 {
+    max-width: none;
+    font-size: clamp(2.35rem, 11vw, 3rem);
+    line-height: 0.94;
+  }
+
+  .hero-nithin-teju .hero-portmanteau {
+    margin-top: 3px;
+    font-size: clamp(0.72rem, 3.2vw, 0.9rem);
+    text-align: left;
+  }
+
+  .hero-nithin-teju .hero-tagline {
+    margin-top: 12px;
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
   .hero-overlay {
     background: var(--hero-overlay);
   }
@@ -1953,13 +2021,14 @@ body.invitation-locked {
   }
 
   .scratch-reveal {
-    width: 100%;
-    min-height: 238px;
-    margin-top: 22px;
+    width: calc(100% + 12px);
+    min-height: 250px;
+    margin-top: 10px;
+    margin-left: -6px;
   }
 
   .scratch-content {
-    min-height: 238px;
+    min-height: 250px;
     gap: 16px;
     padding: 18px 14px;
   }
@@ -2284,11 +2353,11 @@ body.invitation-locked {
   }
 
   .scratch-reveal {
-    min-height: 228px;
+    min-height: 240px;
   }
 
   .scratch-content {
-    min-height: 228px;
+    min-height: 240px;
   }
 
   .event-body,
@@ -2318,6 +2387,16 @@ body.invitation-locked {
     padding-left: 16px;
   }
 
+  .hero-nithin-teju .hero-copy {
+    bottom: 276px;
+    left: 16px;
+    width: min(62vw, 242px);
+  }
+
+  .hero-nithin-teju h1 {
+    font-size: clamp(2.15rem, 10.5vw, 2.55rem);
+  }
+
   h1 {
     font-size: clamp(2.8rem, 14vw, 3.7rem);
   }
@@ -2328,12 +2407,12 @@ body.invitation-locked {
   }
 
   .scratch-reveal {
-    min-height: 218px;
-    margin-top: 16px;
+    min-height: 230px;
+    margin-top: 6px;
   }
 
   .scratch-content {
-    min-height: 218px;
+    min-height: 230px;
     padding: 14px 10px;
   }
 
