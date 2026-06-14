@@ -14,6 +14,7 @@ const emptySubmission = (eventIds: string[]): RsvpSubmission => ({
   attendance: "yes",
   guests: 1,
   selectedEvents: [],
+  guestNames: "",
   message: "",
 });
 
@@ -96,7 +97,6 @@ export function Rsvp({ wedding }: RsvpProps) {
       const optionLabels = wedding.rsvp.googleFormOptionLabels;
       const formData = new URLSearchParams();
 
-      appendIfPresent(formData, "emailAddress", submission.email);
       appendIfPresent(formData, fieldIds.fullName, submission.name);
       appendIfPresent(formData, fieldIds.email, submission.email);
       appendIfPresent(formData, fieldIds.phone, submission.phone);
@@ -106,6 +106,7 @@ export function Rsvp({ wedding }: RsvpProps) {
         optionLabels?.attendance?.[submission.attendance] ?? submission.attendance,
       );
       appendIfPresent(formData, fieldIds.guests, submission.guests);
+      appendIfPresent(formData, fieldIds.guestNames, submission.guestNames);
       appendIfPresent(formData, fieldIds.message, submission.message);
 
       submission.selectedEvents.forEach((eventId) => {
@@ -161,8 +162,9 @@ export function Rsvp({ wedding }: RsvpProps) {
           <div className="google-rsvp-copy">
             <h3>RSVP through Google Forms</h3>
             <p>
-              Your response will be collected securely in the wedding RSVP spreadsheet. Please submit one response per
-              household.
+              1. One response per household.
+              <br />
+              2. Kindly submit a response, even if your answer is “No” or “Maybe”.
             </p>
             <a className="primary-button" href={googleFormUrl} target="_blank" rel="noreferrer">
               <Send size={18} />
@@ -188,7 +190,11 @@ export function Rsvp({ wedding }: RsvpProps) {
               </span>
               <div>
                 <h3>Guest details</h3>
-                <p>One response per household, please.</p>
+                <p>
+                  1. One response per household.
+                  <br />
+                  2. Kindly submit a response, even if your answer is “No” or “Maybe”.
+                </p>
               </div>
             </div>
             <div className="form-grid">
@@ -235,6 +241,14 @@ export function Rsvp({ wedding }: RsvpProps) {
                     <Plus size={16} />
                   </button>
                 </div>
+              </label>
+              <label>
+                <span>Guest(s) names <small>(optional)</small></span>
+                <input
+                  value={submission.guestNames}
+                  onChange={(event) => update("guestNames", event.target.value)}
+                  placeholder="If applicable, add +1 names here"
+                />
               </label>
             </div>
           </div>

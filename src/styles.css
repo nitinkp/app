@@ -697,18 +697,27 @@ h3 {
 }
 
 @media (min-width: 960px) {
+  .slideshow {
+    min-height: 520px;
+  }
+
+  .slide {
+    min-height: 520px;
+    align-items: center;
+    justify-items: center;
+  }
+
   .slide img {
-    /* Use contain on desktop to avoid vertical cropping; center the image */
-    height: auto;
+    width: auto;
+    max-width: 100%;
     max-height: 520px;
     object-fit: contain;
   }
 }
 
 @media (min-width: 1120px) {
-  .slide {
-    align-items: center;
-    justify-content: center;
+  .slideshow {
+    min-height: 560px;
   }
 }
 .slide-caption {

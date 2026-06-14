@@ -99,9 +99,12 @@ googleFormFieldIds: {
   phone: "entry.333333333",
   attendance: "entry.444444444",
   guests: "entry.555555555",
+  guestNames: "entry.888888888",
   events: "entry.666666666",
   message: "entry.777777777",
 }
+
+Add the new optional guest names field to your Google Form and update the matching `guestNames` entry ID here. The app will not require this field to submit.
 ```
 
 Find these by opening the published Google Form, choosing **View Page Source**, and searching for each question label.

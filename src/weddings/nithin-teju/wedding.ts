@@ -155,6 +155,7 @@ export const nithinTejuWedding: WeddingConfig = {
       phone: "entry.968995082",
       attendance: "entry.716561151",
       guests: "entry.625161931",
+      guestNames: "entry.1401189441",
       events: "entry.801008396",
     },
     googleFormOptionLabels: {

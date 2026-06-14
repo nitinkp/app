@@ -62,6 +62,7 @@ export type GoogleFormFieldIds = {
   attendance: string;
   guests: string;
   events: string;
+  guestNames?: string;
   message?: string;
 };
 
@@ -133,5 +134,6 @@ export type RsvpSubmission = {
   attendance: Attendance;
   guests: number;
   selectedEvents: string[];
+  guestNames?: string;
   message: string;
 };
