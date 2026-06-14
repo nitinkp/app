@@ -158,7 +158,7 @@ The site can keep its own RSVP design and still send responses into Google Forms
 ```ts
 googleFormFieldIds: {
   fullName: "entry.111111111",
-  email: "entry.222222222",
+  email: "entry.222222222", // Omit when Google Forms collects responder email.
   phone: "entry.333333333",
   attendance: "entry.444444444",
   guests: "entry.555555555",
@@ -166,6 +166,8 @@ googleFormFieldIds: {
   message: "entry.777777777",
 }
 ```
+
+Set `rsvp.maxGuests` to the highest value available in the Google Form guest-count question. When Google Forms uses **Collect email addresses: Responder input**, the app submits the email through Google's built-in `emailAddress` field, so a separate Email question and entry ID are not needed.
 
 How to find the IDs:
 

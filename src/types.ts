@@ -57,7 +57,7 @@ export type WeddingThemeConfig = {
 
 export type GoogleFormFieldIds = {
   fullName: string;
-  email: string;
+  email?: string;
   phone?: string;
   attendance: string;
   guests: string;
@@ -129,6 +129,7 @@ export type WeddingConfig = {
     googleFormEmbedUrl?: string;
     googleFormFieldIds?: GoogleFormFieldIds;
     googleFormOptionLabels?: GoogleFormOptionLabels;
+    maxGuests?: number;
     formEndpoint?: string;
   };
 };

@@ -19,7 +19,7 @@ const emptySubmission = (eventIds: string[]): RsvpSubmission => ({
 });
 
 const minGuests = 1;
-const maxGuests = 20;
+const defaultMaxGuests = 20;
 
 const getGoogleFormActionUrl = (formUrl: string) => formUrl.split("/viewform")[0] + "/formResponse";
 
@@ -33,7 +33,6 @@ const hasRequiredGoogleFormFields = (rsvp: WeddingConfig["rsvp"]) =>
   Boolean(
     rsvp.googleFormUrl &&
       rsvp.googleFormFieldIds?.fullName &&
-      rsvp.googleFormFieldIds.email &&
       rsvp.googleFormFieldIds.attendance &&
       rsvp.googleFormFieldIds.guests &&
       rsvp.googleFormFieldIds.events,
@@ -43,6 +42,7 @@ export function Rsvp({ wedding }: RsvpProps) {
   const hasGoogleFormDirectSubmit = hasRequiredGoogleFormFields(wedding.rsvp);
   const isGoogleFormRsvp = !hasGoogleFormDirectSubmit && Boolean(wedding.rsvp.googleFormUrl || wedding.rsvp.googleFormEmbedUrl);
   const googleFormUrl = wedding.rsvp.googleFormUrl ?? wedding.rsvp.googleFormEmbedUrl;
+  const maxGuests = wedding.rsvp.maxGuests ?? defaultMaxGuests;
   const eventIds = useMemo(() => wedding.events.map((event) => event.id), [wedding.events]);
   const storageKey = `wedding-rsvp:${wedding.slug}`;
   const [submission, setSubmission] = useState<RsvpSubmission>(() => {
@@ -97,6 +97,8 @@ export function Rsvp({ wedding }: RsvpProps) {
       const optionLabels = wedding.rsvp.googleFormOptionLabels;
       const formData = new URLSearchParams();
 
+      // Google Forms uses this reserved field when email collection is set to responder input.
+      appendIfPresent(formData, "emailAddress", submission.email);
       appendIfPresent(formData, fieldIds.fullName, submission.name);
       appendIfPresent(formData, fieldIds.email, submission.email);
       appendIfPresent(formData, fieldIds.phone, submission.phone);

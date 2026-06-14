@@ -95,7 +95,7 @@ To use the site's custom RSVP form instead of embedding Google Forms, also add:
 ```ts
 googleFormFieldIds: {
   fullName: "entry.111111111",
-  email: "entry.222222222",
+  email: "entry.222222222", // Omit when Google Forms collects responder email.
   phone: "entry.333333333",
   attendance: "entry.444444444",
   guests: "entry.555555555",
@@ -103,8 +103,10 @@ googleFormFieldIds: {
   events: "entry.666666666",
   message: "entry.777777777",
 }
+```
 
 Add the new optional guest names field to your Google Form and update the matching `guestNames` entry ID here. The app will not require this field to submit.
-```
+
+Set `rsvp.maxGuests` to match the highest guest-count choice in Google Forms. When email collection uses **Responder input**, no custom Email question or entry ID is required.
 
 Find these by opening the published Google Form, choosing **View Page Source**, and searching for each question label.

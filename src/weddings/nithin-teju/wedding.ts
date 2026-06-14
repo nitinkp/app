@@ -162,13 +162,13 @@ export const nithinTejuWedding: WeddingConfig = {
     deadline: "2026-08-15",
     contactName: "Yash",
     contactPhone: "+1 469-996-4010",
+    maxGuests: 4,
     googleFormUrl:
       "https://docs.google.com/forms/d/e/1FAIpQLSftaxwdHRtQc6H5BRk2DT9zWrbzeaowBzrMR6XAbpknZPauzA/viewform?usp=publish-editor",
     googleFormEmbedUrl:
       "https://docs.google.com/forms/d/e/1FAIpQLSftaxwdHRtQc6H5BRk2DT9zWrbzeaowBzrMR6XAbpknZPauzA/viewform?embedded=true",
     googleFormFieldIds: {
       fullName: "entry.280492329",
-      email: "entry.508149769",
       phone: "entry.968995082",
       attendance: "entry.716561151",
       guests: "entry.625161931",
