@@ -630,7 +630,9 @@ h3 {
 }
 
 .event-card.event-card-haldi img,
-.event-card.event-card-mehendi img {
+.event-card.event-card-mehendi img,
+.event-card.event-card-wedding img,
+.event-card.event-card-reception img {
   object-fit: cover;
   object-position: center;
 }
