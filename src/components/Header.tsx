@@ -3,6 +3,7 @@ import type { WeddingConfig } from "../types";
 
 type HeaderProps = {
   wedding: WeddingConfig;
+  isVisible?: boolean;
 };
 
 const links = [
@@ -12,9 +13,9 @@ const links = [
   { href: "#live", label: "Live", icon: PlayCircle },
 ];
 
-export function Header({ wedding }: HeaderProps) {
+export function Header({ wedding, isVisible = true }: HeaderProps) {
   return (
-    <header className="site-header">
+    <header className={`site-header ${isVisible ? "" : "header-hidden"}`.trim()}>
       <a className="brand" href="#home" aria-label="Go to top">
         <Heart size={18} fill="currentColor" />
         <span>{wedding.couple.displayNames}</span>

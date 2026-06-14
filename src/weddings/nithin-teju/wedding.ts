@@ -45,7 +45,7 @@ export const nithinTejuWedding: WeddingConfig = {
     {
       id: "haldi",
       title: "Haldi Carnival",
-      type: "Ceremony",
+      type: "Haldi",
       date: "2026-08-27",
       startTime: "17:00",
       dressCode: "Biege, Yellow, or Florals",
@@ -61,7 +61,7 @@ export const nithinTejuWedding: WeddingConfig = {
     {
       id: "mehendi",
       title: "Mehendi",
-      type: "Celebration",
+      type: "Mehendi",
       date: "2026-08-28",
       startTime: "15:00",
       dressCode: "Colorful traditional attire, Mehendi-friendly",

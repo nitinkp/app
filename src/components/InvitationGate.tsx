@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatDate } from "../lib/date";
 import type { WeddingConfig } from "../types";
 
@@ -13,11 +13,15 @@ type GatePhase = "sealed" | "opening" | "unfolding" | "expanding" | "exiting";
 
 export function InvitationGate({ wedding, onReveal, onComplete }: InvitationGateProps) {
   const [phase, setPhase] = useState<GatePhase>("sealed");
+  const timersRef = useRef<number[]>([]);
   const config = wedding.entryInvitation;
 
   useEffect(() => {
     document.body.classList.add("invitation-locked");
-    return () => document.body.classList.remove("invitation-locked");
+    return () => {
+      document.body.classList.remove("invitation-locked");
+      timersRef.current.forEach(window.clearTimeout);
+    };
   }, []);
 
   const openInvitation = () => {
@@ -26,13 +30,13 @@ export function InvitationGate({ wedding, onReveal, onComplete }: InvitationGate
     }
 
     setPhase("opening");
-    window.setTimeout(() => setPhase("unfolding"), 550);
-    window.setTimeout(() => setPhase("expanding"), 1_100);
-    window.setTimeout(() => {
-      setPhase("exiting");
-      onReveal();
-    }, 1_850);
-    window.setTimeout(onComplete, 2_350);
+    timersRef.current = [
+      window.setTimeout(() => setPhase("unfolding"), 620),
+      window.setTimeout(() => setPhase("expanding"), 1_280),
+      window.setTimeout(onReveal, 1_520),
+      window.setTimeout(() => setPhase("exiting"), 2_180),
+      window.setTimeout(onComplete, 2_820),
+    ];
   };
 
   return (
@@ -79,6 +83,7 @@ export function InvitationGate({ wedding, onReveal, onComplete }: InvitationGate
             <strong>NT</strong>
           </span>
         </span>
+        <span className="envelope-action">{config?.openLabel ?? "Open invitation"}</span>
       </button>
     </div>
   );

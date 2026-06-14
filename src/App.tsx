@@ -54,6 +54,7 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
   const [isInvitationOpen, setIsInvitationOpen] = useState(hasSeenInvitation);
   const [isInvitationVisible, setIsInvitationVisible] = useState(!hasSeenInvitation);
   const [didTransitionFromInvitation, setDidTransitionFromInvitation] = useState(false);
+  const [isHeaderRevealed, setIsHeaderRevealed] = useState(false);
 
   useEffect(() => {
     document.title = `${wedding.couple.displayNames} Wedding`;
@@ -71,6 +72,25 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
     setIsInvitationVisible(false);
   }, []);
 
+  useEffect(() => {
+    if (!isInvitationOpen || isInvitationVisible || isHeaderRevealed) {
+      return;
+    }
+
+    const revealHeader = () => setIsHeaderRevealed(true);
+    const listenerOptions: AddEventListenerOptions = { passive: true, once: true };
+
+    window.addEventListener("scroll", revealHeader, listenerOptions);
+    window.addEventListener("pointerdown", revealHeader, listenerOptions);
+    window.addEventListener("keydown", revealHeader, { once: true });
+
+    return () => {
+      window.removeEventListener("scroll", revealHeader);
+      window.removeEventListener("pointerdown", revealHeader);
+      window.removeEventListener("keydown", revealHeader);
+    };
+  }, [isHeaderRevealed, isInvitationOpen, isInvitationVisible]);
+
   return (
     <div
       className={[
@@ -78,13 +98,14 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
         `theme-${wedding.theme.name}`,
         !isInvitationOpen ? "invitation-pending" : "",
         didTransitionFromInvitation ? "invitation-complete" : "",
+        isHeaderRevealed ? "header-revealed" : "",
       ].filter(Boolean).join(" ")}
       style={getThemeStyle(wedding.theme.name, wedding.theme.overrides)}
     >
       {isInvitationVisible && (
         <InvitationGate wedding={wedding} onReveal={revealInvitation} onComplete={completeInvitation} />
       )}
-      <Header wedding={wedding} />
+      <Header wedding={wedding} isVisible={isHeaderRevealed} />
       <main>
         <Hero wedding={wedding} />
         <Story wedding={wedding} />
