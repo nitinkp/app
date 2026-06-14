@@ -68,7 +68,7 @@ entryInvitation: {
   enabled: true,
   eyebrow: "You are invited",
   message: "Together with their families, invite you to celebrate their wedding.",
-  openLabel: "Open invitation",
+  openLabel: "Open Invitation",
   backgroundImage: "/weddings/couple-slug/invitation.png",
   rememberForSession: true,
 }

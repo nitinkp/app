@@ -629,6 +629,12 @@ h3 {
   background: color-mix(in srgb, var(--paper) 92%, var(--accent));
 }
 
+.event-card.event-card-haldi img,
+.event-card.event-card-mehendi img {
+  object-fit: cover;
+  object-position: center;
+}
+
 .event-body,
 .venue-body,
 .live-details {
@@ -830,12 +836,8 @@ h3 {
 .rsvp-form-section {
   display: grid;
   align-content: start;
-  gap: 26px;
-  padding: clamp(24px, 4vw, 40px);
-}
-
-.guest-details {
-  align-content: center;
+  gap: 22px;
+  padding: clamp(24px, 3vw, 32px);
 }
 
 .attendance-details {
@@ -845,7 +847,8 @@ h3 {
 
 .form-section-heading {
   display: flex;
-  align-items: center;
+  min-height: 54px;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -862,7 +865,8 @@ h3 {
 .form-section-heading p {
   margin-top: 3px;
   color: rgba(255, 250, 245, 0.62);
-  font-size: 0.88rem;
+  font-size: 0.84rem;
+  line-height: 1.4;
 }
 
 .form-section-icon {
@@ -915,7 +919,11 @@ h3 {
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px 16px;
+  gap: 16px;
+}
+
+.guest-names-field {
+  grid-column: 1 / -1;
 }
 
 label,
@@ -1049,7 +1057,7 @@ legend {
   justify-content: space-between;
   gap: 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 20px clamp(24px, 4vw, 40px);
+  padding: 16px clamp(24px, 3vw, 32px);
   background: rgba(0, 0, 0, 0.08);
 }
 

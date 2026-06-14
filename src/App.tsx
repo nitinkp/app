@@ -164,7 +164,6 @@ function WeddingSite({ wedding }: { wedding: WeddingConfig }) {
               type="button"
               onClick={toggleWeddingMusic}
               aria-label={isMusicPlaying ? "Pause wedding music" : "Play wedding music"}
-              title={wedding.music.title ?? "Wedding music"}
             >
               {isMusicPlaying ? <Volume2 size={18} /> : <VolumeX size={18} />}
             </button>

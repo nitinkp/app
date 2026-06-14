@@ -25,7 +25,7 @@ export const templateWedding: WeddingConfig = {
     enabled: true,
     eyebrow: "You are invited",
     message: "Together with their families, invite you to celebrate their wedding.",
-    openLabel: "Open invitation",
+    openLabel: "Open Invitation",
     rememberForSession: true,
   },
   events: [

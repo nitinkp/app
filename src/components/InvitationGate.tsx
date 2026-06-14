@@ -85,7 +85,7 @@ export function InvitationGate({ wedding, onOpenInvitation, onReveal, onComplete
             <strong>NT</strong>
           </span>
         </span>
-        <span className="envelope-action">{config?.openLabel ?? "Open invitation"}</span>
+        <span className="envelope-action">{config?.openLabel ?? "Open Invitation"}</span>
       </button>
     </div>
   );

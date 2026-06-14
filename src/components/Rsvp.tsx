@@ -192,16 +192,12 @@ export function Rsvp({ wedding }: RsvpProps) {
               </span>
               <div>
                 <h3>Guest details</h3>
-                <p>
-                  1. One response per household.
-                  <br />
-                  2. Kindly submit a response, even if your answer is “No” or “Maybe”.
-                </p>
+                <p>One response per household. Please reply even if your answer is “No” or “Maybe”.</p>
               </div>
             </div>
             <div className="form-grid">
               <label>
-                <span>Full name</span>
+                <span>Full Name</span>
                 <input
                   required
                   autoComplete="name"
@@ -233,7 +229,7 @@ export function Rsvp({ wedding }: RsvpProps) {
                 />
               </label>
               <label>
-                <span>Number of guests</span>
+                <span>Number of Guests</span>
                 <div className="stepper">
                   <button type="button" aria-label="Decrease guests" onClick={() => update("guests", Math.max(1, submission.guests - 1))}>
                     <Minus size={16} />
@@ -244,8 +240,8 @@ export function Rsvp({ wedding }: RsvpProps) {
                   </button>
                 </div>
               </label>
-              <label>
-                <span>Guest(s) names <small>(optional)</small></span>
+              <label className="guest-names-field">
+                <span>Guest(s) Names <small>(Optional)</small></span>
                 <input
                   value={submission.guestNames}
                   onChange={(event) => update("guestNames", event.target.value)}
@@ -260,12 +256,12 @@ export function Rsvp({ wedding }: RsvpProps) {
                 <CalendarCheck2 size={18} />
               </span>
               <div>
-                <h3>Your plans</h3>
+                <h3>Your Plans</h3>
                 <p>Tell us which celebrations to expect you at.</p>
               </div>
             </div>
             <fieldset className="attendance">
-              <legend>Can you attend?</legend>
+              <legend>Can You Attend?</legend>
               {(["yes", "maybe", "no"] as Attendance[]).map((option) => (
                 <label key={option}>
                   <input
@@ -280,7 +276,7 @@ export function Rsvp({ wedding }: RsvpProps) {
               ))}
             </fieldset>
             <fieldset className="event-picker">
-              <legend>Events attending</legend>
+              <legend>Events Attending</legend>
               {wedding.events.map((event) => (
                 <label key={event.id}>
                   <input
