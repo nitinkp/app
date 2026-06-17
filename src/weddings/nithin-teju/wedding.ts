@@ -85,10 +85,10 @@ export const nithinTejuWedding: WeddingConfig = {
       title: "Wedding Ceremony",
       type: "Wedding",
       date: "2026-08-29",
-      startTime: "09:30",
+      startTime: "08:00",
       endTime: "12:30",
       dressCode: "Traditional Indian Attire",
-      note: "Muhurtham is at 10:01 AM.",
+      note: "Please be as early as possible to witness the entire ceremony and bless us during the sacred moment. Breakfast will be served.",
       image: "/weddings/nithin-teju/gallery/wedding_portrait.jpeg",
       venue: {
         name: "Reflections Event Space",
